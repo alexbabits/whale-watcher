@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+      .row {
+        display: flex;
+        margin: 1em 0;
+      }
+
+      .row.center {
+        justify-content: center;
+        align-items: center;
+      }
+
+      .row.left {
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      button {
+        padding: 0.5em 1em;
+        font-size: 1.2em;
+        margin: 0 0.5em;
+      }
+
+      #saveThresholdUSD {
+        padding: 0.3em 0.6em;
+        font-size: 1em;
+        background-color: rgb(255, 180, 42);
+      }
+
+      #saveApiKey, #saveBotToken, #saveChatID {
+        padding: 0.3em 0.6em;
+        font-size: 1em;
+        background-color: rgb(152, 102, 152);
+      }
+
+      #startButton {
+        padding: 0.6em 1.2em;
+        font-size: 1.4em;
+        background-color: rgb(50, 200, 50);
+      }
+
+      #stopButton {
+        padding: 0.6em 1.2em;
+        font-size: 1.4em;
+        background-color: rgb(255, 76, 76);
+      }
+
+      input[type="text"] {
+        width: 60%;
+        padding: 0.5em;
+        margin: 0 0.5em;
+      }
+
+      input[type="number"] {
+        width: 135px;
+        padding: 0.5em;
+        margin: 0 0.5em;
+        font-size: 1.2em;
+      }
+
+      select {
+        margin: 0.5em;
+        padding: 0.3em 0.6em;
+        font-size: 1em;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="row center">
+      <select id="coinSelect">
+        <option value='USDC'>USDC</option>
+        <option value='USDT'>USDT</option>
+        <option value='DAI'>DAI</option>
+        <option value='ETH'>ETH</option>
+        <option value='LINK'>LINK</option>
+        <option value='DYDX'>DYDX</option>
+        <option value='UNI'>UNI</option>
+        <option value='AAVE'>AAVE</option>
+        <option value='PEPE'>PEPE</option>
+        <option value='SHIB'>SHIB</option>
+      </select>
+      <input type="number" id="thresholdUSD" placeholder="USD" min="0" max="1000000000" step="1000" value="20000"/>
+      <button id="saveThresholdUSD">Set USD Threshold</button>
+      <button id="startButton">Start</button>
+      <button id="stopButton">Stop</button>
+    </div>
+    <div class="row left">
+      <input type="text" id="alchemyApiKey" placeholder="Enter Alchemy API Key" />
+      <button id="saveApiKey">Save API Key</button>
+    </div>
+    <div class="row left">
+      <input type="text" id="botToken" placeholder="Enter Telegram Bot Token" />
+      <button id="saveBotToken">Save Bot Token</button>
+    </div>
+    <div class="row left">
+      <input type="text" id="chatID" placeholder="Enter Telegram Chat ID" />
+      <button id="saveChatID">Save Chat ID</button>
+    </div>
+
+    <script>
+      document.getElementById('startButton').addEventListener('click', () => {
+        const selectedCoin = document.getElementById('coinSelect').value;
+        window.api.startWhaleWatch(selectedCoin);
+      });
+      document.getElementById("stopButton").addEventListener("click", () => {
+        window.api.stopWhaleWatch();
+      });
+      document.getElementById("saveApiKey").addEventListener("click", () => {
+        const apiKey = document.getElementById("alchemyApiKey").value;
+        window.api.saveApiKey(apiKey);
+      });
+      document.getElementById("saveBotToken").addEventListener("click", () => {
+        const botToken = document.getElementById("botToken").value;
+        window.api.saveBotToken(botToken);
+      });
+      document.getElementById("saveChatID").addEventListener("click", () => {
+        const chatID = document.getElementById("chatID").value;
+        window.api.saveChatID(chatID);
+      });
+      document.getElementById("saveThresholdUSD").addEventListener("click", () => {
+        const thresholdUSDString = document.getElementById("thresholdUSD").value;
+        const thresholdUSD = parseFloat(thresholdUSDString);
+        window.api.saveThresholdUSD(thresholdUSD);
+      });
+    </script>
+
+  </body>
+  
+</html>

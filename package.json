@@ -1,0 +1,27 @@
+{
+  "name": "whale_watcher",
+  "version": "0.6.9",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "https://github.com/alexbabits",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "electron": "^26.1.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.example.whaleWatcher",
+    "win": {
+      "icon": "whalepicture.ico"
+    }
+  }
+}
